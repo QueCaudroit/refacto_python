@@ -41,6 +41,25 @@ class Item:
         self.name = name
         self.sell_in = sell_in
         self.quality = quality
+        if name = "Sulfuras, Hand of Ragnaros":
+            self.update_quality = update_sulfuras 
 
     def __repr__(self):
         return "%s, %s, %s" % (self.name, self.sell_in, self.quality)
+
+    def update(self):
+        self.sell_in -= 1
+        self.quality = self.update_quality(sell_in, quality)
+
+def update_sulfuras(sell_in, quality):
+    return 80
+
+def update_backstage(sell_in, quality):
+    if sell_in == 10:
+        return quality + 2
+    elif sell_in == 5:
+        return quality + 3
+    elif sell_in <= 0:
+        return 0
+    else:
+        return quality
