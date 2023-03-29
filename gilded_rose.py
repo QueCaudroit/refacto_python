@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+MAX_QUALITY = 50
+MIN_QUALITY = 0
 
 class GildedRose(object):
 
@@ -35,13 +37,12 @@ class GildedRose(object):
                     if item.quality < 50:
                         item.quality = item.quality + 1
 
-
 class Item:
     def __init__(self, name, sell_in, quality):
         self.name = name
         self.sell_in = sell_in
         self.quality = quality
-        if name = "Sulfuras, Hand of Ragnaros":
+        if name == "Sulfuras, Hand of Ragnaros":
             self.update_quality = update_sulfuras 
 
     def __repr__(self):
@@ -56,10 +57,25 @@ def update_sulfuras(sell_in, quality):
 
 def update_backstage(sell_in, quality):
     if sell_in == 10:
-        return quality + 2
+        return min(quality + 2, MAX_QUALITY)
     elif sell_in == 5:
-        return quality + 3
+        return min(quality + 3, MAX_QUALITY)
     elif sell_in <= 0:
-        return 0
+        return MIN_QUALITY
     else:
         return quality
+
+def update_brie(sell_in, quality):
+    return min(quality + 1, MAX_QUALITY)
+
+def update_default(sell_in, quality):
+    if sell_in <= 0:
+        return max(quality - 1, MIN_QUALITY)
+    else:
+        return max(quality - 2, MIN_QUALITY)
+
+def update_conjured(sell_in, quality):
+    if sell_in <= 0:
+        return max(quality - 2, MIN_QUALITY)
+    else:
+        return max(quality - 4, MIN_QUALITY)
